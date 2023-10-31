@@ -7,8 +7,6 @@
 
 import Foundation
 
-
-
 class FavoriteDogsManager: ObservableObject {
     @Published var favoriteDogs: [Dog] = {
         if let data = UserDefaults.standard.data(forKey: "favoriteDogs") {
