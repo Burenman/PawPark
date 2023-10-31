@@ -8,17 +8,37 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State private var dogs = [Dog]()
+    @State private var name: String = ""
+    @ObservedObject var favoriteDogsManager = FavoriteDogsManager()
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        NavigationView {
+            TabView {
+                // Search Tab
+                NavigationView {
+                    SearchView()
+                }
+                .tabItem {
+                    Label("Search", systemImage: "magnifyingglass")
+                }
+                .tag("Search")
+                
+                // Favorites Tab
+                NavigationView {
+                    FavoriteDogsView(favoriteDogsManager: favoriteDogsManager)
+                }
+                .tabItem {
+                    Label("Favorites", systemImage: "star.fill")
+                }
+                .tag("Favorites")
+            }
         }
-        .padding()
     }
 }
 
-#Preview {
-    ContentView()
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentView()
+    }
 }
